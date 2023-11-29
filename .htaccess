@@ -10,6 +10,7 @@
 # Main security options in .htaccess file:
 
 # BEGIN security
+Content-Security-Policy: default-src 'self';
 <IfModule mod_headers.c>
     Header set Age "216000"
     Header set X-Frame-Options SAMEORIGIN #arba DENY
