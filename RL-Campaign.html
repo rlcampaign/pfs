@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ja" class="chrome chrome112">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+
+<meta name="theme-color" content="#041E3A">
+
+<meta name="format-detection" content="telephone=no">
+
+<!--<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline';">-->
+
+<title>ラルフ ローレン</title>
+  <link href="./RL-Campaign_files/main.css" rel="stylesheet">
+<style>
+.Discountlabel {
+display: block;
+margin: 0.5em auto;
+font-size: 1.5em;
+font-weight: bold;
+text-align: center;
+}
+.Checkboxlarger {
+width: 20px;
+height: 20px;
+}
+#final-price {
+display: inline-block;
+padding-left: 0.5em;
+color: #FF0000;
+animation: none;
+font-size: 1.5em;
+font-weight: bold;
+}
+.txtbox input{
+height: 1.8rem;
+}
+@keyframes countup {
+from {
+opacity: 0;
+transform: translateY(-20px);
+}
+to {
+opacity: 1;
+transform: translateY(0);
+}
+</style>
+
+<script>
+
+
+let rowCount = 1;
+function addRow() {
+rowCount++;
+const table = document.getElementById("rowTable");
+const row = document.createElement("tr");
+
+const priceCell = document.createElement("td");
+const priceInput = document.createElement("input");
+priceInput.type = "currency";
+priceInput.name = "price" + rowCount;
+priceInput.onchange = calculatePrice;
+
+priceCell.appendChild(priceInput);
+
+const discountCell = document.createElement("td");
+const discountSelect = document.createElement("select");
+discountSelect.name = "discount" + rowCount;
+discountSelect.onchange= calculatePrice;
+const discounts = ["0", 10, 20, 30, 40, 50, 60, 70];
+discounts.forEach((discount) => {
+const option = document.createElement("option");
+option.value = discount;
+option.text = discount + "%";
+discountSelect.appendChild(option);
+});
+discountCell.appendChild(discountSelect);
+
+row.appendChild(priceCell);
+row.appendChild(discountCell);
+table.appendChild(row);
+}
+
+function calculateTotal() {
+const table = document.getElementById("rowTable");
+const rows = table.getElementsByTagName("tr");
+let totalPrice = 0;
+let noDscTotalPrice = 0;
+
+for (let i = 1; i < rows.length; i++) {
+const row = rows[i];
+const priceInput = row.getElementsByTagName("input")[0];
+const discountSelect = row.getElementsByTagName("select")[0];
+const price = parseFloat(priceInput.value);
+const discount = parseInt(discountSelect.value);
+
+if (!isNaN(price)) {
+noDscTotalPrice += price;
+const discountedPrice = price - (price * discount) / 100;
+totalPrice += discountedPrice;
+}
+}
+
+//const totalPriceElement = document.getElementById("totalPrice");
+//totalPriceElement.textContent = "Total Price: $" + totalPrice.toFixed(2);
+
+}
+
+
+function hankaku2Zenkaku(str) {
+    return str.replace(/[Ａ-Ｚａ-ｚ０-９]/g, function(s) {
+        return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
+    });
+}
+
+function calculatePrice() {
+	var dscLMP = 0;
+	var dscBuy3 = 0;
+	var label = document.getElementById("final-price");
+	label.innerHTML = "";
+	var noDsclabel = document.getElementById("TagPriceNoDsc");
+	noDsclabel.innerHTML = "";
+	
+	const table = document.getElementById("rowTable");
+	const rows = table.getElementsByTagName("tr");
+	let noDscTotalPrice = 0;
+	let totalPrice = 0;
+	let countProduct = 0;
+	for (let i = 1; i < rows.length; i++) {
+		const row = rows[i];
+		const priceInput = row.getElementsByTagName("input")[0];
+		const discountSelect = row.getElementsByTagName("select")[0];
+
+
+		var stringPrice = priceInput.value;
+		stringPrice = hankaku2Zenkaku(stringPrice);
+		const price = parseFloat(stringPrice.replace(/[^0-9.-]+/g,""));
+		const discount = parseInt(discountSelect.value);
+
+		if (!isNaN(price)) {
+		noDscTotalPrice += price;
+		priceInput.value = price.toLocaleString("ja-JP", {style:"currency", currency:"JPY"});
+		const discountedPrice = price * (1 - discount/100);
+		totalPrice += discountedPrice;
+		countProduct +=1;
+		}
+	}
+	
+	if (countProduct < 3) {
+		document.getElementById("myCheck20").checked = false;
+		document.getElementById("myCheck20").disabled = true;
+	}
+	else{
+	    document.getElementById("myCheck20").disabled = false;
+	}
+	
+	if (document.getElementById("myCheck3").checked) {
+	      //alert("チェックボックスがonに変更されました。");
+	      dscLMP = parseFloat(document.getElementById("myCheck3").value);
+	} else{
+			dscLMP = 0;
+	}
+
+	if (document.getElementById("myCheck20").checked) {
+	      //alert("チェックボックスがonに変更されました。");
+	      dscBuy3 = parseFloat(document.getElementById("myCheck20").value);
+	} else{
+			dscBuy3 = 0;
+	}
+
+noDsclabel.innerHTML = noDscTotalPrice.toLocaleString("ja-JP", {style:"currency", currency:"JPY"});
+// Calculate final price
+var finalPrice = totalPrice - Math.round(totalPrice*(dscBuy3/100));
+	finalPrice = finalPrice - Math.round(finalPrice*(dscLMP/100));
+	//finalPrice = finalPrice * 1.1;
+// Update label with animation
+
+var anim = setInterval(function() {
+label.innerHTML = (Math.round(finalPrice * 100) / 100).toLocaleString("ja-JP", {style:"currency", currency:"JPY"});
+label.style.animation = "countup 0.5s";
+clearInterval(anim);
+}, 500);
+}
+
+function changeLanguage() {
+const languageSelect = document.getElementById("language");
+const language = languageSelect.value;
+
+if (language === "en") {
+document.getElementById("TagPriceTit").textContent = "❈Tag Price (Include Tax)";
+document.getElementById("PrcDscTit").textContent = "❈Discount %";
+document.getElementById("AddTit").textContent = "Add Product";
+document.getElementById("DiscTit").textContent = "Total Price(tax inc)";
+document.getElementById("languagetit").textContent = "Language：";
+document.getElementById("DiscExpl1").textContent = "❈This is a reference price.";
+document.getElementById("DiscExpl2").textContent = "❈Please check the final price at the cash register.";
+document.getElementById("TagPriceNoDscTit").textContent = "No Discount Total Price(tax inc):";
+
+} else if (language === "ja") {
+document.getElementById("TagPriceTit").textContent = "❈タグの価格(税込)";
+document.getElementById("PrcDscTit").textContent = "❈店内割引表示";
+document.getElementById("AddTit").textContent = "商品追加";
+document.getElementById("DiscTit").textContent = "合計価格(税込)";
+document.getElementById("languagetit").textContent = "言語：";
+document.getElementById("DiscExpl1").textContent = "❈こちらは参考価格となります。";
+document.getElementById("DiscExpl2").textContent = "❈最終価格についてはレジにてご確認ください。";
+document.getElementById("TagPriceNoDscTit").textContent = "割引なし合計価格（税込）:";
+
+
+} else if (language === "zh") {
+document.getElementById("TagPriceTit").textContent = "❈标签价格（含税）";
+document.getElementById("PrcDscTit").textContent = "❈店内折扣标识";
+document.getElementById("AddTit").textContent = "添加产品";
+document.getElementById("DiscTit").textContent = "合计价格(含税)";
+document.getElementById("languagetit").textContent = "语言：";
+document.getElementById("DiscExpl1").textContent = "❈这是参考价格。";
+document.getElementById("DiscExpl2").textContent = "❈最终价格请到收银台确认。";
+document.getElementById("TagPriceNoDscTit").textContent = "不含折扣总价（含税）:";
+
+}
+}
+</script>
+
+</head>
+
+  <body data-page="contactProduct">
+      <div class="l-main">
+        <div class="l-content">
+          <main class="l-single">
+            <section class="l-single__main">
+              <div><div class="o-page-header">
+		  <!-- prettier-ignore -->
+		  <div class="o-page-header__item">
+		  </div>
+		  <!-- prettier-ignore -->
+		  <div class="o-page-header__item--main">
+		    
+			<div class=""><img src="./RL-Campaign_files/FactoryStoreLogo.jpg" alt="RALPH LAUREN" width="100%" height="100%">
+			  <!--<h1 class="c-page-title">FACTORY OUTLET クーポン</h1>-->
+			</div>
+		  </div>
+		</div>
+<div>
+  <section>
+<center><label for="language" id="languagetit">言語:</label>
+<select id="language" onchange="changeLanguage()">
+<option value="ja">日本語</option>
+<option value="en">English</option>
+<option value="zh">中文</option>
+</select></center>
+<br><br>
+      <div class="m-input-contents-container">
+        <div class="o-flex-container--between">
+          <div class="o-form-group">
+			<table id="rowTable" class="txtbox" >
+				<tr>
+				<th><label id="TagPriceTit">❈タグの価格（税込）</label></th>
+				<th><label id="PrcDscTit">❈店内割引表示</label></th>
+				</tr>
+				<tr>
+				<td><input type="text" name="price1" id="price1" data-type="currency" value="" size="20" maxlength="30" onchange="calculatePrice()"></td>
+				<td>
+					<select id="discount1" onchange="calculatePrice()">
+					<option value="0">0%</option>
+						<option value="10">10%</option>
+						<option value="20">20%</option>
+						<option value="30">30%</option>
+						<option value="40">40%</option>
+						<option value="50">50%</option>
+						<option value="60">60%</option>
+						<option value="70">70%</option>
+					</select>
+				</td>
+				</tr>
+			</table>
+			<br>
+			<table>
+			<th><h4><label id="TagPriceNoDscTit">割引なし合計価格（税込）:</label></h4></th>
+			<th><h4><label id="TagPriceNoDsc"></label></h4></th>
+			</table>
+		<br>
+			<button class="c-button-primary--small" onclick="addRow()"><label id="AddTit">商品追加</label></button>
+		<br><br>
+         <div class="p-input-block-privacy-checkbox">
+	              <div>
+	              	<label class="checklabel">
+				    </label>
+		              	<input type="checkbox" class="Checkboxlarger" id="myCheck3" value="3" onchange="calculatePrice()"></input><label for="myCheck3" id="LineDscTit" Style="vertical-align: top;">　LINE MEMBERSHIP登録 GET 3% OFF</label>
+	              </div> 
+	              <div>
+		              	<input type="checkbox" class="Checkboxlarger" id="myCheck20" disabled="disabled" value="20" onchange="calculatePrice()"><label for="myCheck20" id="320DscTit" Style="vertical-align: top;" >　BUY 3 GET 20% OFF</label></input>
+	              </div> 
+          </div> 
+		</div>
+              <!-- COUPON FORM さらに-->
+        <div class="o-content-footer">
+            <table><tr><td>
+            				<h1><label id="DiscTit">合計価格(税込)</label></h1>
+            			</td><td><h4>❈</h4></td>
+            		</tr>
+            </table>
+            <h5><br><label id="DiscExpl1">❈こちらは参考価格となります。</label><br><label id="DiscExpl2">❈最終価格についてはレジにてご確認ください。</h4>
+            <br>
+            <center>
+            <h1>
+            <label class="Discountlabel"><span id="final-price"></span></label>
+            </h1>
+            </center>
+        </div>
+      </div>
+  </section>
+</div>
+</div>
+
+              
+            </section>
+          </main>
+        </div>
+      </div>
+      <footer class="l-footer js-global-footer">
+  <div class="pj-footer">
+    <div class="pj-footer-navs-container">
+        <div class="pj-footer-copyright-container">
+          <small class="pj-footer-common-copyright">
+            © COPYRIGHT 2023 RALPH LAUREN. ALL RIGHTS RESERVED.
+          </small>
+        </div>
+    </div>
+  </div>
+</footer>
+  <span id="naviplus-member-rank" class="u-hide">
+    
+    
+  </span>
+
+    </div>
+<noscript></noscript>
+<!-- End Facebook Pixel Code --><script async="" src="./RL-Campaign_files/ytag.js"></script><div style="display: none;">
+
+
+
+
+
+</body></html>
