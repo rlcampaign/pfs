@@ -10,7 +10,7 @@
 # Main security options in .htaccess file:
 
 # BEGIN security
-<IfModule mod_headers.c>
+# <IfModule mod_headers.c>
     Header set Age "216000"
     Header set X-Frame-Options SAMEORIGIN #arba DENY
     Header set X-XSS-Protection "1; mode=block"
@@ -29,5 +29,5 @@
     Header unset X-Powered-By
     Header unset server
     Header append Vary "Accept-Encoding, User-Agent, Referer"
-</IfModule>
+# </IfModule>
 # END BEGIN security
