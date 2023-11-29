@@ -17,7 +17,7 @@
     Header set X-Content-Type-Options "nosniff"
     Header set X-Permitted-Cross-Domain-Policies "none"
     Header set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" env=HTTPS
-    #Header set Content-Security-Policy "default-src * data:; script-src https: 'unsafe-inline' 'unsafe-eval'; style-src https: 'unsafe-inline'"
+    Header set Content-Security-Policy "default-src * data:; script-src https: 'unsafe-inline' 'unsafe-eval'; style-src https: 'unsafe-inline'"
     #Header set Content-Security-Policy "default-src 'self'; script-src https: 'unsafe-inline'; img-src https: data: 'unsafe-inline'; style-src https: 'unsafe-inline'; object-src 'none'; child-src 'self'; frame-ancestors 'none'; frame-src 'self' *.hotjar.com; connect-src 'self' *.hotjar.com; base-uri 'self';form-action 'self'; font-src https: data: 'self' *.fontawesome.com; upgrade-insecure-requests; block-all-mixed-content"
     Header set Content-Security-Policy "default-src 'self' data:; object-src 'none'; child-src 'self'; frame-ancestors 'none'; upgrade-insecure-requests; block-all-mixed-content"
     Header set Referrer-Policy "no-referrer-when-downgrade"
