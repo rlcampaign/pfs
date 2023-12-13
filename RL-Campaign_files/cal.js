@@ -95,13 +95,24 @@ function calculatePrice() {
 		}
 	}
 	
-	if (countProduct < 3) {
+	//Buy 3 get 20% off
+	//if (countProduct < 3) {
+	//	document.getElementById("myCheck20").checked = false;
+	//	document.getElementById("myCheck20").disabled = true;
+	//}
+	//else{
+	//    document.getElementById("myCheck20").disabled = false;
+	//}
+	
+	//合計45,000円以上の購入で20% OFF
+	if (noDscTotalPrice < 45000) {
 		document.getElementById("myCheck20").checked = false;
 		document.getElementById("myCheck20").disabled = true;
 	}
 	else{
 	    document.getElementById("myCheck20").disabled = false;
 	}
+	
 	
 	if (document.getElementById("myCheck3").checked) {
 	      //alert("チェックボックスがonに変更されました。");
@@ -144,6 +155,7 @@ document.getElementById("languagetit").textContent = "Language：";
 document.getElementById("DiscExpl1").textContent = "❈This is a reference price.";
 document.getElementById("DiscExpl2").textContent = "❈Please check the final price at the cash register.";
 document.getElementById("TagPriceNoDscTit").textContent = "No Discount Total Price(tax inc):";
+document.getElementById("20DscTit").textContent = "　20% OFF for purchases over ￥45,000";
 
 } else if (language === "ja") {
 document.getElementById("TagPriceTit").textContent = "❈タグの価格(税込)";
@@ -154,6 +166,7 @@ document.getElementById("languagetit").textContent = "言語：";
 document.getElementById("DiscExpl1").textContent = "❈こちらは参考価格となります。";
 document.getElementById("DiscExpl2").textContent = "❈最終価格についてはレジにてご確認ください。";
 document.getElementById("TagPriceNoDscTit").textContent = "割引なし合計価格（税込）:";
+document.getElementById("20DscTit").textContent = "　合計45,000円以上の購入で20% OFF";
 
 
 } else if (language === "zh") {
@@ -165,6 +178,7 @@ document.getElementById("languagetit").textContent = "语言：";
 document.getElementById("DiscExpl1").textContent = "❈这是参考价格。";
 document.getElementById("DiscExpl2").textContent = "❈最终价格请到收银台确认。";
 document.getElementById("TagPriceNoDscTit").textContent = "不含折扣总价（含税）:";
+document.getElementById("20DscTit").textContent = "　购买总额超过￥45,000享8折优惠";
 
 }
 }
