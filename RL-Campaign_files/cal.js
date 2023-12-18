@@ -1,4 +1,5 @@
 let rowCount = 1;
+let discShow = "割引金額";
 function addRow() {
 rowCount++;
 const table = document.getElementById("rowTable");
@@ -69,6 +70,11 @@ function calculatePrice() {
 	label.innerHTML = "";
 	var noDsclabel = document.getElementById("TagPriceNoDsc");
 	noDsclabel.innerHTML = "";
+	var dsclabel = document.getElementById("dscPriceShow");
+	dsclabel.innerHTML = "";
+	var dscPricelabel = document.getElementById("dscPriceAmount");
+	dscPricelabel.innerHTML = "";
+	
 	
 	const table = document.getElementById("rowTable");
 	const rows = table.getElementsByTagName("tr");
@@ -140,6 +146,10 @@ label.innerHTML = (Math.round(finalPrice * 100) / 100).toLocaleString("ja-JP", {
 label.style.animation = "countup 0.5s";
 clearInterval(anim);
 }, 500);
+
+dsclabel.innerHTML = discShow;
+dscPricelabel.innerHTML = (noDscTotalPrice - (Math.round(finalPrice * 100) / 100)).toLocaleString("ja-JP", {style:"currency", currency:"JPY"});
+
 }
 
 function changeLanguage() {
@@ -156,6 +166,10 @@ document.getElementById("DiscExpl1").textContent = "❈This is a reference price
 document.getElementById("DiscExpl2").textContent = "❈Please check the final price at the cash register.";
 document.getElementById("TagPriceNoDscTit").textContent = "No Discount Total Price(tax inc):";
 document.getElementById("20DscTit").textContent = "　20% OFF for purchases over ￥45,000";
+discShow= "DiscountPrice";
+if (document.getElementById("dscPriceShow").textContent != ""){
+	document.getElementById("dscPriceShow").textContent = discShow;
+}
 
 } else if (language === "ja") {
 document.getElementById("TagPriceTit").textContent = "❈タグの価格(税込)";
@@ -167,7 +181,10 @@ document.getElementById("DiscExpl1").textContent = "❈こちらは参考価格�
 document.getElementById("DiscExpl2").textContent = "❈最終価格についてはレジにてご確認ください。";
 document.getElementById("TagPriceNoDscTit").textContent = "割引なし合計価格（税込）:";
 document.getElementById("20DscTit").textContent = "　合計45,000円以上の購入で20% OFF";
-
+discShow= "割引金額";
+if (document.getElementById("dscPriceShow").textContent !=""){
+	document.getElementById("dscPriceShow").textContent = discShow;
+}
 
 } else if (language === "zh") {
 document.getElementById("TagPriceTit").textContent = "❈标签价格（含税）";
@@ -179,6 +196,10 @@ document.getElementById("DiscExpl1").textContent = "❈这是参考价格。";
 document.getElementById("DiscExpl2").textContent = "❈最终价格请到收银台确认。";
 document.getElementById("TagPriceNoDscTit").textContent = "不含折扣总价（含税）:";
 document.getElementById("20DscTit").textContent = "　购买总额超过￥45,000享8折优惠";
+discShow= "折扣金额";
+if (document.getElementById("dscPriceShow").textContent != ""){
+	document.getElementById("dscPriceShow").textContent = discShow;
+}
 
 }
 }
