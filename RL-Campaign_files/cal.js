@@ -166,7 +166,7 @@ document.getElementById("DiscExpl1").textContent = "❈This is a reference price
 document.getElementById("DiscExpl2").textContent = "❈Please check the final price at the cash register.";
 document.getElementById("TagPriceNoDscTit").textContent = "No Discount Total Price(tax inc):";
 document.getElementById("20DscTit").textContent = "　20% OFF for purchases over ￥45,000";
-discShow= "DiscountPrice";
+discShow= "Discount Price";
 if (document.getElementById("dscPriceShow").textContent != ""){
 	document.getElementById("dscPriceShow").textContent = discShow;
 }
