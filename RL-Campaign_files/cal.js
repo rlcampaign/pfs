@@ -111,7 +111,7 @@ function calculatePrice() {
 	//}
 	
 	//合計45,000円以上の購入で20% OFF
-	if (noDscTotalPrice < 45000) {
+	if (totalPrice < 45000) {
 		document.getElementById("myCheck20").checked = false;
 		document.getElementById("myCheck20").disabled = true;
 	}
