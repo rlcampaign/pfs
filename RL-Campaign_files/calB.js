@@ -1,5 +1,13 @@
 let rowCount = 1;
 let discShow = "割引金額";
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    const currentYear = new Date().getFullYear();
+    const copyrightElement = document.getElementById("copyright");
+    copyrightElement.textContent = `© COPYRIGHT ${currentYear} RALPH LAUREN. ALL RIGHTS RESERVED.`;
+});
+
 function addRow() {
 rowCount++;
 const table = document.getElementById("rowTable");
@@ -138,9 +146,26 @@ noDsclabel.innerHTML = noDscTotalPrice.toLocaleString("ja-JP", {style:"currency"
 // Calculate final price
 var finalPrice = Math.ceil(totalPrice * (1 - dscBuy3/100));
 	finalPrice = Math.ceil(finalPrice * (1 - dscLMP/100));
-	//finalPrice = finalPrice * 1.1;
+	
+	//Check if total bigger than 5000 for dutyCheck
+	if (finalPrice < 5500) {
+		document.getElementById("myCheckDuty").checked = false;
+		document.getElementById("myCheckDuty").disabled = true;
+	}
+	else{
+	    document.getElementById("myCheckDuty").disabled = false;
+	}
+	
+	if (document.getElementById("myCheckDuty").checked) {
+	      //alert("チェックボックスがonに変更されました。");
+	      finalPrice = finalPrice / 1.1;
+	      changeLanguage();
+	} else{
+			changeLanguage();
+	}
+	
+	
 // Update label with animation
-
 var anim = setInterval(function() {
 label.innerHTML = (Math.round(finalPrice * 100) / 100).toLocaleString("ja-JP", {style:"currency", currency:"JPY"});
 label.style.animation = "countup 0.5s";
@@ -166,6 +191,7 @@ document.getElementById("DiscExpl1").textContent = "❈This is a reference price
 document.getElementById("DiscExpl2").textContent = "❈Please check the final price at the cash register.";
 document.getElementById("TagPriceNoDscTit").textContent = "No Discount Total Price(tax inc):";
 //document.getElementById("20DscTit").textContent = "　20% OFF for purchases over ￥40,000";
+document.getElementById("DutyTit").textContent = "　Tax Free Price";
 discShow= "Discount Price";
 if (document.getElementById("dscPriceShow").textContent != ""){
 	document.getElementById("dscPriceShow").textContent = discShow;
@@ -181,6 +207,7 @@ document.getElementById("DiscExpl1").textContent = "❈こちらは参考価格�
 document.getElementById("DiscExpl2").textContent = "❈最終価格についてはレジにてご確認ください。";
 document.getElementById("TagPriceNoDscTit").textContent = "割引なし合計価格（税込）:";
 //document.getElementById("20DscTit").textContent = "　合計40,000円以上の購入で20% OFF";
+document.getElementById("DutyTit").textContent = "　免税価格";
 discShow= "割引金額";
 if (document.getElementById("dscPriceShow").textContent !=""){
 	document.getElementById("dscPriceShow").textContent = discShow;
@@ -196,6 +223,7 @@ document.getElementById("DiscExpl1").textContent = "❈这是参考价格。";
 document.getElementById("DiscExpl2").textContent = "❈最终价格请到收银台确认。";
 document.getElementById("TagPriceNoDscTit").textContent = "不含折扣总价（含税）:";
 //document.getElementById("20DscTit").textContent = "　购买总额超过￥40,000享8折优惠";
+document.getElementById("DutyTit").textContent = "　退税价格";
 discShow= "折扣金额";
 if (document.getElementById("dscPriceShow").textContent != ""){
 	document.getElementById("dscPriceShow").textContent = discShow;
