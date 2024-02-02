@@ -145,6 +145,15 @@ function calculatePrice() {
 	var finalPrice = Math.ceil(totalPrice * (1 - dscBuy3/100));
 		finalPrice = Math.ceil(finalPrice * (1 - dscLMP/100));
 
+	//Check if total bigger than 5000 for dutyCheck
+	if (finalPrice < 5500) {
+		document.getElementById("myCheckDuty").checked = false;
+		document.getElementById("myCheckDuty").disabled = true;
+	}
+	else{
+	    document.getElementById("myCheckDuty").disabled = false;
+	}
+	
 	if (document.getElementById("myCheckDuty").checked) {
 	      //alert("チェックボックスがonに変更されました。");
 	      finalPrice = finalPrice / 1.1;
