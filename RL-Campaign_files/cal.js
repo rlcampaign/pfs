@@ -72,6 +72,7 @@ function hankaku2Zenkaku(str) {
 function calculatePrice() {
 	var dscLMP = 0;
 	var dscBuy3 = 0;
+	var dscBuy2 = 0;
 	var label = document.getElementById("final-price");
 	label.innerHTML = "";
 	var noDsclabel = document.getElementById("TagPriceNoDsc");
@@ -107,23 +108,28 @@ function calculatePrice() {
 		}
 	}
 	
-	//Buy 3 get 20% off
-	//if (countProduct < 3) {
+	//Buy 3 get 30% off
+	if (countProduct < 3) {
+		document.getElementById("myCheck30").checked = false;
+		document.getElementById("myCheck30").disabled = true;
+
+		document.getElementById("myCheck20").disabled = false;
+	}
+	else{
+	    document.getElementById("myCheck30").disabled = false;
+	    
+	    document.getElementById("myCheck20").checked = false;
+		document.getElementById("myCheck20").disabled = true;
+	}
+	
+	//合計38,500円以上の購入で20% OFF
+	//if (totalPrice < 38500) {
 	//	document.getElementById("myCheck20").checked = false;
 	//	document.getElementById("myCheck20").disabled = true;
 	//}
 	//else{
 	//    document.getElementById("myCheck20").disabled = false;
 	//}
-	
-	//合計38,500円以上の購入で20% OFF
-	if (totalPrice < 38500) {
-		document.getElementById("myCheck20").checked = false;
-		document.getElementById("myCheck20").disabled = true;
-	}
-	else{
-	    document.getElementById("myCheck20").disabled = false;
-	}
 	
 	
 	if (document.getElementById("myCheck3").checked) {
@@ -133,17 +139,26 @@ function calculatePrice() {
 			dscLMP = 0;
 	}
 
-	if (document.getElementById("myCheck20").checked) {
+	if (document.getElementById("myCheck30").checked) {
 	      //alert("チェックボックスがonに変更されました。");
-	      dscBuy3 = parseFloat(document.getElementById("myCheck20").value);
+	      dscBuy3 = parseFloat(document.getElementById("myCheck30").value);
 	} else{
 			dscBuy3 = 0;
 	}
+	if (document.getElementById("myCheck30").checked) {
+	      //alert("チェックボックスがonに変更されました。");
+	      dscBuy2 = parseFloat(document.getElementById("myCheck20").value);
+	} else{
+			dscBuy2 = 0;
+	}
+
 
 	noDsclabel.innerHTML = noDscTotalPrice.toLocaleString("ja-JP", {style:"currency", currency:"JPY"});
 	// Calculate final price
 	var finalPrice = Math.ceil(totalPrice * (1 - dscBuy3/100));
+		finalPrice = Math.ceil(finalPrice * (1 - dscBuy2/100));
 		finalPrice = Math.ceil(finalPrice * (1 - dscLMP/100));
+		
 
 	//Check if total bigger than 5000 for dutyCheck
 	if (finalPrice < 5500) {
@@ -195,7 +210,7 @@ document.getElementById("languagetit").textContent = "Language：";
 document.getElementById("DiscExpl1").textContent = "❈This is a reference price.";
 document.getElementById("DiscExpl2").textContent = "❈Please check the final price at the cash register.";
 document.getElementById("TagPriceNoDscTit").textContent = "No Discount Total Price(tax inc):";
-document.getElementById("20DscTit").textContent = "　20% OFF for purchases over ￥38,500";
+//document.getElementById("20DscTit").textContent = "　20% OFF for purchases over ￥38,500";
 document.getElementById("DutyTit").textContent = "　Tax Free Price";
 discShow= "Discount Price";
 if (document.getElementById("dscPriceShow").textContent != ""){
@@ -217,7 +232,7 @@ document.getElementById("languagetit").textContent = "言語：";
 document.getElementById("DiscExpl1").textContent = "❈こちらは参考価格となります。";
 document.getElementById("DiscExpl2").textContent = "❈最終価格についてはレジにてご確認ください。";
 document.getElementById("TagPriceNoDscTit").textContent = "割引なし合計価格（税込）:";
-document.getElementById("20DscTit").textContent = "　合計38,500円(税抜35,000円)以上の購入で20% OFF";
+//document.getElementById("20DscTit").textContent = "　合計38,500円(税抜35,000円)以上の購入で20% OFF";
 document.getElementById("DutyTit").textContent = "　免税価格";
 discShow= "割引金額";
 if (document.getElementById("dscPriceShow").textContent !=""){
@@ -240,7 +255,7 @@ document.getElementById("DiscExpl1").textContent = "❈这是参考价格。";
 document.getElementById("DiscExpl2").textContent = "❈最终价格请到收银台确认。";
 document.getElementById("TagPriceNoDscTit").textContent = "不含折扣总价（含税）:";
 document.getElementById("DutyTit").textContent = "　退税价格";
-document.getElementById("20DscTit").textContent = "　购买总额超过￥38,500享8折优惠";
+//document.getElementById("20DscTit").textContent = "　购买总额超过￥38,500享8折优惠";
 discShow= "折扣金额";
 if (document.getElementById("dscPriceShow").textContent != ""){
 	document.getElementById("dscPriceShow").textContent = discShow;
