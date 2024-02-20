@@ -145,7 +145,7 @@ function calculatePrice() {
 	} else{
 			dscBuy3 = 0;
 	}
-	if (document.getElementById("myCheck30").checked) {
+	if (document.getElementById("myCheck20").checked) {
 	      //alert("チェックボックスがonに変更されました。");
 	      dscBuy2 = parseFloat(document.getElementById("myCheck20").value);
 	} else{
