@@ -73,6 +73,7 @@ function calculatePrice() {
 	var dscLMP = 0;
 	var dscBuy3 = 0;
 	var dscBuy2 = 0;
+	var dscBuy1 = 0;
 	var label = document.getElementById("final-price");
 	label.innerHTML = "";
 	var noDsclabel = document.getElementById("TagPriceNoDsc");
@@ -109,17 +110,30 @@ function calculatePrice() {
 	}
 	
 	//Buy 3 get 30% off
-	if (countProduct < 3) {
+	if (countProduct == 1) {
 		document.getElementById("myCheck30").checked = false;
 		document.getElementById("myCheck30").disabled = true;
-
-		document.getElementById("myCheck20").disabled = false;
-	}
-	else{
-	    document.getElementById("myCheck30").disabled = false;
-	    
-	    document.getElementById("myCheck20").checked = false;
+		document.getElementById("myCheck20").checked = false;
 		document.getElementById("myCheck20").disabled = true;
+
+		document.getElementById("myCheck10").disabled = false;
+	}
+	else if(countProduct == 2){
+		document.getElementById("myCheck30").checked = false;
+		document.getElementById("myCheck30").disabled = true;
+		
+		document.getElementById("myCheck10").checked = false;
+		document.getElementById("myCheck10").disabled = true;
+	    
+	    document.getElementById("myCheck20").disabled = false;
+	}
+	else if (countProduct == 3) {
+		document.getElementById("myCheck20").checked = false;
+		document.getElementById("myCheck20").disabled = true;
+		document.getElementById("myCheck10").checked = false;
+		document.getElementById("myCheck10").disabled = true;
+	    
+	    document.getElementById("myCheck30").disabled = false;
 	}
 	
 	//合計38,500円以上の購入で20% OFF
@@ -151,12 +165,18 @@ function calculatePrice() {
 	} else{
 			dscBuy2 = 0;
 	}
-
+	if (document.getElementById("myCheck10").checked) {
+	      //alert("チェックボックスがonに変更されました。");
+	      dscBuy1 = parseFloat(document.getElementById("myCheck10").value);
+	} else{
+			dscBuy1 = 0;
+	}
 
 	noDsclabel.innerHTML = noDscTotalPrice.toLocaleString("ja-JP", {style:"currency", currency:"JPY"});
 	// Calculate final price
 	var finalPrice = Math.ceil(totalPrice * (1 - dscBuy3/100));
 		finalPrice = Math.ceil(finalPrice * (1 - dscBuy2/100));
+		finalPrice = Math.ceil(finalPrice * (1 - dscBuy1/100));
 		finalPrice = Math.ceil(finalPrice * (1 - dscLMP/100));
 		
 
