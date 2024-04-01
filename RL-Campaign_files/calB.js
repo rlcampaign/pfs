@@ -110,31 +110,31 @@ function calculatePrice() {
 	}
 	
 	//Buy 3 get 30% off
-	if (countProduct == 1) {
-		document.getElementById("myCheck30").checked = false;
-		document.getElementById("myCheck30").disabled = true;
-		document.getElementById("myCheck20").checked = false;
-		document.getElementById("myCheck20").disabled = true;
-
-		document.getElementById("myCheck10").disabled = false;
-	}
-	else if(countProduct == 2){
-		document.getElementById("myCheck30").checked = false;
-		document.getElementById("myCheck30").disabled = true;
-		
-		document.getElementById("myCheck10").checked = false;
-		document.getElementById("myCheck10").disabled = true;
-	    
-	    document.getElementById("myCheck20").disabled = false;
-	}
-	else if (countProduct == 3) {
-		document.getElementById("myCheck20").checked = false;
-		document.getElementById("myCheck20").disabled = true;
-		document.getElementById("myCheck10").checked = false;
-		document.getElementById("myCheck10").disabled = true;
-	    
-	    document.getElementById("myCheck30").disabled = false;
-	}
+	//if (countProduct == 1) {
+	//	document.getElementById("myCheck30").checked = false;
+	//	document.getElementById("myCheck30").disabled = true;
+	//	document.getElementById("myCheck20").checked = false;
+	//	document.getElementById("myCheck20").disabled = true;
+    //
+	//	document.getElementById("myCheck10").disabled = false;
+	//}
+	//else if(countProduct == 2){
+	//	document.getElementById("myCheck30").checked = false;
+	//	document.getElementById("myCheck30").disabled = true;
+	//	
+	//	document.getElementById("myCheck10").checked = false;
+	//	document.getElementById("myCheck10").disabled = true;
+	//    
+	//    document.getElementById("myCheck20").disabled = false;
+	//}
+	//else if (countProduct == 3) {
+	//	document.getElementById("myCheck20").checked = false;
+	//	document.getElementById("myCheck20").disabled = true;
+	//	document.getElementById("myCheck10").checked = false;
+	//	document.getElementById("myCheck10").disabled = true;
+	//    
+	//    document.getElementById("myCheck30").disabled = false;
+	//}
 	
 	//合計38,500円以上の購入で20% OFF
 	//if (totalPrice < 38500) {
@@ -153,24 +153,24 @@ function calculatePrice() {
 			dscLMP = 0;
 	}
 
-	if (document.getElementById("myCheck30").checked) {
-	      //alert("チェックボックスがonに変更されました。");
-	      dscBuy3 = parseFloat(document.getElementById("myCheck30").value);
-	} else{
-			dscBuy3 = 0;
-	}
-	if (document.getElementById("myCheck20").checked) {
-	      //alert("チェックボックスがonに変更されました。");
-	      dscBuy2 = parseFloat(document.getElementById("myCheck20").value);
-	} else{
-			dscBuy2 = 0;
-	}
-	if (document.getElementById("myCheck10").checked) {
-	      //alert("チェックボックスがonに変更されました。");
-	      dscBuy1 = parseFloat(document.getElementById("myCheck10").value);
-	} else{
-			dscBuy1 = 0;
-	}
+	//if (document.getElementById("myCheck30").checked) {
+	//      //alert("チェックボックスがonに変更されました。");
+	//      dscBuy3 = parseFloat(document.getElementById("myCheck30").value);
+	//} else{
+	//		dscBuy3 = 0;
+	//}
+	//if (document.getElementById("myCheck20").checked) {
+	//      //alert("チェックボックスがonに変更されました。");
+	//      dscBuy2 = parseFloat(document.getElementById("myCheck20").value);
+	//} else{
+	//		dscBuy2 = 0;
+	//}
+	//if (document.getElementById("myCheck10").checked) {
+	//      //alert("チェックボックスがonに変更されました。");
+	//      dscBuy1 = parseFloat(document.getElementById("myCheck10").value);
+	//} else{
+	//		dscBuy1 = 0;
+	//}
 
 	noDsclabel.innerHTML = noDscTotalPrice.toLocaleString("ja-JP", {style:"currency", currency:"JPY"});
 	// Calculate final price
