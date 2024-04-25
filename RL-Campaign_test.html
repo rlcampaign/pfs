@@ -56,7 +56,7 @@
 				<td><input type="text" name="price1" id="price1" data-type="currency" value="" size="20" maxlength="30" onchange="calculatePrice()"></td>
 				<td>
 					<select id="discount1" onchange="calculatePrice()">
-					<option value="0">0%</option>
+					<option value="0">-</option>
 						<option value="10">10%</option>
 						<option value="20">20%</option>
 						<option value="25">25%</option>
@@ -79,24 +79,70 @@
 			<button class="c-button-primary--small" onclick="addRow()"><label id="AddTit">商品追加</label></button>
 		<br><br>
          <div class="p-input-block-privacy-checkbox">
+	              <!--
 	              <div>
 	              	<label class="checklabel">
 				    </label>
-		              	<input type="checkbox" class="Checkboxlarger" id="myCheck3" value="3" onchange="calculatePrice()"></input><label for="myCheck3" id="LineDscTit" Style="vertical-align: top;">　LINE MEMBERSHIP登録 GET 3% OFF</label>
+		              	<input type="checkbox" class="Checkboxlarger" id="myCheck3" value="5" onchange="calculatePrice()"></input><label for="myCheck3" id="LineDscTit" Style="vertical-align: top;">　LINE MEMBERSHIP登録 GET 5% OFF</label>
 	              </div> 
-	              <!--
 	              <div>
-		              	<input type="checkbox" class="Checkboxlarger" id="myCheck10" value="10" onchange="calculatePrice()"><label for="myCheck20" id="20DscTit" Style="vertical-align: top;" >　BUY 1 GET 10% OFF</label></input>
-	              </div>
+		              	<input type="checkbox" class="Checkboxlarger" id="myCheck20" disabled="disabled" value="20" onchange="calculatePrice()"><label for="myCheck20" id="20DscTit" Style="vertical-align: top;" >　合計38,500円(税抜35,000円)以上の購入で20% OFF</label></input>
+	              </div> 
+
 	              <div>
-		              	<input type="checkbox" class="Checkboxlarger" id="myCheck20" value="20" disabled="disabled" onchange="calculatePrice()"><label for="myCheck20" id="20DscTit" Style="vertical-align: top;" >　BUY 2 GET 20% OFF</label></input>
+		              	<input type="checkbox" class="Checkboxlarger" id="myCheck20" value="20" onchange="calculatePrice()"><label for="myCheck20" id="20DscTit" Style="vertical-align: top;" >　BUY 1, BUY 2 GET 20% OFF</label></input>
 	              </div>
 	              <div>
 		              	<input type="checkbox" class="Checkboxlarger" id="myCheck30" disabled="disabled" value="30" onchange="calculatePrice()"><label for="myCheck30" id="30DscTit" Style="vertical-align: top;" >　BUY 3 GET 30% OFF</label></input>
 	              </div> 
 	              -->
 	              <div>
-		              	<input type="checkbox" class="Checkboxlarger" id="myCheckDuty" value="20" disabled="disabled" onchange="calculatePrice()"><label for="myCheckDuty" id="DutyTit" Style="vertical-align: top;" >　免税価格</label></input>
+					<table id="rowTable" class="txtbox" ><tr><td>
+			              	<input type="checkbox" class="Checkboxlarger" id="myCustomCheck1" onchange="calculatePrice()"><label for="myCustomCheck1" id="20DscTit" Style="vertical-align: top;" >　割引/クーポン</label></input>
+							</td><td Style="vertical-align: top;">
+							<select id="myCustomDiscount1" onchange="calculatePrice()">
+							<option value="0">-</option>
+								<option value="3">3%</option>
+								<option value="5">5%</option>
+								<option value="10">10%</option>
+								<option value="15">15%</option>
+								<option value="20">20%</option>
+								<option value="25">25%</option>
+								<option value="30">30%</option>
+							</select>
+							</td></tr>
+							<tr><td>
+			              	<input type="checkbox" class="Checkboxlarger" id="myCustomCheck2" onchange="calculatePrice()"><label for="myCustomCheck2" id="20DscTit" Style="vertical-align: top;" >　割引/クーポン</label></input>
+							</td><td Style="vertical-align: top;">
+							<select id="myCustomDiscount2" onchange="calculatePrice()">
+							<option value="0">-</option>
+								<option value="3">3%</option>
+								<option value="5">5%</option>
+								<option value="10">10%</option>
+								<option value="15">15%</option>
+								<option value="20">20%</option>
+								<option value="25">25%</option>
+								<option value="30">30%</option>
+							</select>
+							</td></tr>
+							<tr><td>
+			              	<input type="checkbox" class="Checkboxlarger" id="myCustomCheck3" onchange="calculatePrice()"><label for="myCustomCheck3" id="20DscTit" Style="vertical-align: top;" >　割引/クーポン</label></input>
+							</td><td Style="vertical-align: top;">
+							<select id="myCustomDiscount3" onchange="calculatePrice()">
+							<option value="0">-</option>
+								<option value="3">3%</option>
+								<option value="5">5%</option>
+								<option value="10">10%</option>
+								<option value="15">15%</option>
+								<option value="20">20%</option>
+								<option value="25">25%</option>
+								<option value="30">30%</option>
+							</select>
+							</td></tr>
+							<tr><td>
+								<input type="checkbox" class="Checkboxlarger" id="myCheckDuty" value="20" disabled="disabled" onchange="calculatePrice()"><label for="myCheckDuty" id="DutyTit" Style="vertical-align: top;" >　免税価格</label></input>
+							</td></tr>
+					</table>
 	              </div> 
           </div> 
 		</div>
