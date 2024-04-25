@@ -241,6 +241,10 @@ if (document.getElementById("dscPriceShow").textContent != ""){
 	document.getElementById("dscPriceShow").textContent = discShow;
 }
 
+document.getElementById("customTit1").textContent = "　Discount/Coupon";
+document.getElementById("customTit2").textContent = "　Discount/Coupon";
+document.getElementById("customTit3").textContent = "　Discount/Coupon";
+
 } else if (language === "ja") {
 document.getElementById("TagPriceTit").textContent = "❈タグの価格(税込)";
 document.getElementById("PrcDscTit").textContent = "❈店内割引表示";
@@ -263,6 +267,10 @@ if (document.getElementById("dscPriceShow").textContent !=""){
 	document.getElementById("dscPriceShow").textContent = discShow;
 }
 
+document.getElementById("customTit1").textContent = "　割引/クーポン";
+document.getElementById("customTit2").textContent = "　割引/クーポン";
+document.getElementById("customTit3").textContent = "　割引/クーポン";
+
 } else if (language === "zh") {
 document.getElementById("TagPriceTit").textContent = "❈标签价格（含税）";
 document.getElementById("PrcDscTit").textContent = "❈店内折扣标识";
@@ -284,6 +292,8 @@ discShow= "折扣金额";
 if (document.getElementById("dscPriceShow").textContent != ""){
 	document.getElementById("dscPriceShow").textContent = discShow;
 }
-
+document.getElementById("customTit1").textContent = "　折扣/Coupon";
+document.getElementById("customTit2").textContent = "　折扣/Coupon";
+document.getElementById("customTit3").textContent = "　折扣/Coupon";
 }
 }
