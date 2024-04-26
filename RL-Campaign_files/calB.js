@@ -23,11 +23,12 @@ const discountCell = document.createElement("td");
 const discountSelect = document.createElement("select");
 discountSelect.name = "discount" + rowCount;
 discountSelect.onchange= calculatePrice;
-const discounts = ["0", 10, 20, 25, 30, 40, 50, 60, 70, 80];
+const discounts = [0, 10, 20, 25, 30, 40, 50, 60, 70, 80];
+const textdiscounts = ["-", "10%", "20%", "25%", "30%", "40%", "50%", "60%", "70%", "80%"];
 discounts.forEach((discount) => {
 const option = document.createElement("option");
 option.value = discount;
-option.text = discount + "%";
+option.text = textdiscounts;
 discountSelect.appendChild(option);
 });
 discountCell.appendChild(discountSelect);
@@ -73,7 +74,10 @@ function calculatePrice() {
 	var dscLMP = 0;
 	var dscBuy3 = 0;
 	var dscBuy2 = 0;
-	var dscBuy1 = 0;
+	var customDisc1=0;
+	var customDisc2=0;
+	var customDisc3=0;
+	
 	var label = document.getElementById("final-price");
 	label.innerHTML = "";
 	var noDsclabel = document.getElementById("TagPriceNoDsc");
@@ -110,30 +114,17 @@ function calculatePrice() {
 	}
 	
 	//Buy 3 get 30% off
-	//if (countProduct == 1) {
+	//if (countProduct < 3) {
 	//	document.getElementById("myCheck30").checked = false;
 	//	document.getElementById("myCheck30").disabled = true;
-	//	document.getElementById("myCheck20").checked = false;
-	//	document.getElementById("myCheck20").disabled = true;
     //
-	//	document.getElementById("myCheck10").disabled = false;
+	//	document.getElementById("myCheck20").disabled = false;
 	//}
-	//else if(countProduct == 2){
-	//	document.getElementById("myCheck30").checked = false;
-	//	document.getElementById("myCheck30").disabled = true;
-	//	
-	//	document.getElementById("myCheck10").checked = false;
-	//	document.getElementById("myCheck10").disabled = true;
-	//    
-	//    document.getElementById("myCheck20").disabled = false;
-	//}
-	//else if (countProduct == 3) {
-	//	document.getElementById("myCheck20").checked = false;
-	//	document.getElementById("myCheck20").disabled = true;
-	//	document.getElementById("myCheck10").checked = false;
-	//	document.getElementById("myCheck10").disabled = true;
-	//    
+	//else{
 	//    document.getElementById("myCheck30").disabled = false;
+	//    
+	//    document.getElementById("myCheck20").checked = false;
+	//	document.getElementById("myCheck20").disabled = true;
 	//}
 	
 	//合計38,500円以上の購入で20% OFF
@@ -146,12 +137,12 @@ function calculatePrice() {
 	//}
 	
 	
-	if (document.getElementById("myCheck3").checked) {
-	      //alert("チェックボックスがonに変更されました。");
-	      dscLMP = parseFloat(document.getElementById("myCheck3").value);
-	} else{
-			dscLMP = 0;
-	}
+	//if (document.getElementById("myCheck3").checked) {
+	//      //alert("チェックボックスがonに変更されました。");
+	//      dscLMP = parseFloat(document.getElementById("myCheck3").value);
+	//} else{
+	//		dscLMP = 0;
+	//}
 
 	//if (document.getElementById("myCheck30").checked) {
 	//      //alert("チェックボックスがonに変更されました。");
@@ -165,19 +156,32 @@ function calculatePrice() {
 	//} else{
 	//		dscBuy2 = 0;
 	//}
-	//if (document.getElementById("myCheck10").checked) {
-	//      //alert("チェックボックスがonに変更されました。");
-	//      dscBuy1 = parseFloat(document.getElementById("myCheck10").value);
-	//} else{
-	//		dscBuy1 = 0;
-	//}
-
+	
+	if (document.getElementById("myCustomCheck1").checked) {
+	      //alert("チェックボックスがonに変更されました。");
+	      customDisc1 = parseFloat(document.getElementById("myCustomDiscount1").value);
+	} else{
+			customDisc1 = 0;
+	}
+	if (document.getElementById("myCustomCheck2").checked) {
+	      //alert("チェックボックスがonに変更されました。");
+	      customDisc2 = parseFloat(document.getElementById("myCustomDiscount2").value);
+	} else{
+			customDisc2 = 0;
+	}
+	if (document.getElementById("myCustomCheck3").checked) {
+	      //alert("チェックボックスがonに変更されました。");
+	      customDisc3 = parseFloat(document.getElementById("myCustomDiscount3").value);
+	} else{
+			customDisc3 = 0;
+	}
+	
+	
 	noDsclabel.innerHTML = noDscTotalPrice.toLocaleString("ja-JP", {style:"currency", currency:"JPY"});
 	// Calculate final price
-	var finalPrice = Math.ceil(totalPrice * (1 - dscBuy3/100));
-		finalPrice = Math.ceil(finalPrice * (1 - dscBuy2/100));
-		finalPrice = Math.ceil(finalPrice * (1 - dscBuy1/100));
-		finalPrice = Math.ceil(finalPrice * (1 - dscLMP/100));
+	var finalPrice = Math.ceil(totalPrice * (1 - customDisc1/100));
+		finalPrice = Math.ceil(finalPrice * (1 - customDisc2/100));
+		finalPrice = Math.ceil(finalPrice * (1 - customDisc3/100));
 		
 
 	//Check if total bigger than 5000 for dutyCheck
@@ -237,6 +241,10 @@ if (document.getElementById("dscPriceShow").textContent != ""){
 	document.getElementById("dscPriceShow").textContent = discShow;
 }
 
+document.getElementById("customTit1").textContent = "　Discount/Coupon";
+document.getElementById("customTit2").textContent = "　Discount/Coupon";
+document.getElementById("customTit3").textContent = "　Discount/Coupon";
+
 } else if (language === "ja") {
 document.getElementById("TagPriceTit").textContent = "❈タグの価格(税込)";
 document.getElementById("PrcDscTit").textContent = "❈店内割引表示";
@@ -259,6 +267,10 @@ if (document.getElementById("dscPriceShow").textContent !=""){
 	document.getElementById("dscPriceShow").textContent = discShow;
 }
 
+document.getElementById("customTit1").textContent = "　割引/クーポン";
+document.getElementById("customTit2").textContent = "　割引/クーポン";
+document.getElementById("customTit3").textContent = "　割引/クーポン";
+
 } else if (language === "zh") {
 document.getElementById("TagPriceTit").textContent = "❈标签价格（含税）";
 document.getElementById("PrcDscTit").textContent = "❈店内折扣标识";
@@ -280,6 +292,8 @@ discShow= "折扣金额";
 if (document.getElementById("dscPriceShow").textContent != ""){
 	document.getElementById("dscPriceShow").textContent = discShow;
 }
-
+document.getElementById("customTit1").textContent = "　折扣/Coupon";
+document.getElementById("customTit2").textContent = "　折扣/Coupon";
+document.getElementById("customTit3").textContent = "　折扣/Coupon";
 }
 }
