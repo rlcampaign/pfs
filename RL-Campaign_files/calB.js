@@ -28,7 +28,12 @@ const textdiscounts = ["-", "10%", "20%", "25%", "30%", "40%", "50%", "60%", "70
 discounts.forEach((discount) => {
 const option = document.createElement("option");
 option.value = discount;
-option.text = textdiscounts;
+if (discount ==0){
+option.text = "-";
+}
+else{
+option.text = discount + "%";
+}
 discountSelect.appendChild(option);
 });
 discountCell.appendChild(discountSelect);
